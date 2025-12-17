@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vishal — Portfolio</title>
+  <title>Vishal | Front-end Developer Portfolio</title>
   <meta name="description" content="Vishal's personal portfolio">
+  <link rel="icon" href="rocket.jpg.png">
+
   <style>
     :root{
       --bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#06b6d4; --glass: rgba(255,255,255,0.04);
-      --fw-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      --fw-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
     }
+
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:var(--fw-sans);background:linear-gradient(180deg,#071024 0%, #071827 60%);color:#e6eef8}
+    html,body{margin:0;font-family:var(--fw-sans);background:linear-gradient(180deg,#071024,#071827);color:#e6eef8}
     .container{max-width:1100px;margin:40px auto;padding:28px}
 
     header{display:flex;align-items:center;justify-content:space-between;gap:20px}
@@ -20,109 +23,103 @@
     nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600}
     nav a:hover{color:#fff}
 
-    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;margin-top:38px;align-items:center}
-    .intro h1{font-size:44px;margin:0 0 10px 0;line-height:1.02}
-    .intro p{color:var(--muted);font-size:16px;margin:0 0 20px}
-    .cta{display:flex;gap:12px}
-    .btn{background:var(--accent);border:none;padding:10px 16px;border-radius:10px;color:#042028;font-weight:700;cursor:pointer}
-    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;margin-top:38px}
 
-    .card{background:linear-gradient(180deg,var(--card), rgba(10,14,22,0.6));padding:18px;border-radius:14px;box-shadow:0 6px 18px rgba(3,6,12,0.6)}
-    .profile{display:flex;flex-direction:column;gap:12px;align-items:center}
-    .avatar{width:160px;height:160px;border-radius:20px;background:linear-gradient(135deg,#0ea5a4,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:#042028}
-    .skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-    .chip{background:var(--glass);padding:8px 10px;border-radius:999px;font-weight:600;color:var(--muted);font-size:13px}
+    .card{background:linear-gradient(180deg,var(--card),rgba(10,14,22,0.6));padding:18px;border-radius:14px;box-shadow:0 6px 18px rgba(3,6,12,0.6)}
+
+    .intro h1{font-size:42px;margin:0 0 10px}
+    .intro p{color:var(--muted)}
+
+    .btn{background:var(--accent);border:none;padding:10px 16px;border-radius:10px;color:#042028;font-weight:700;cursor:pointer}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.1);color:var(--muted)}
+
+    .profile{display:flex;flex-direction:column;align-items:center;gap:12px}
+    .avatar{width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#0ea5a4,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:#042028}
+
+    .skills{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{background:var(--glass);padding:8px 10px;border-radius:999px;font-size:13px;color:var(--muted);font-weight:600}
 
     section{margin-top:28px}
-    h2.section-title{font-size:20px;margin:0 0 10px 0}
+    h2{margin:0 0 10px;font-size:20px}
 
-    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-    .project-item{display:flex;flex-direction:column;gap:8px}
-    .project-thumb{height:140px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.2));display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
-    .project-meta{display:flex;justify-content:space-between;align-items:center}
+    .about-img{float:right;width:280px;height:280px;object-fit:cover;border-radius:50%;border:2px solid rgb(158,8,123);margin-left:20px}
 
-    footer{margin-top:36px;color:var(--muted);font-size:14px;text-align:center}
+    footer{text-align:center;color:var(--muted);margin-top:40px}
 
-    /* responsive */
-    @media (max-width:880px){
-      .hero{grid-template-columns:1fr;}
-      .projects{grid-template-columns:1fr}
-      .avatar{width:120px;height:120px}
-    }
+    /* modal */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;z-index:50}
+    .modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);display:none;z-index:60;width:320px}
+
     /* animations */
-    .fade-up{opacity:0;transform:translateY(20px);transition:opacity .8s ease, transform .8s ease}
-    .fade-in{opacity:0;transition:opacity 1s ease}
+    .fade-up{opacity:0;transform:translateY(20px);transition:0.8s}
     .visible{opacity:1;transform:none}
-    img{
-      float: right;
-      margin-top: 20px;
-      margin-right: 30px;
-      width: 400px;
-      height: 400px;
-      justify-content: center;
-      object-fit: cover;
-      border-radius: 100%;
-      border: 2px solid rgb(158, 8, 123);
 
+    @media(max-width:880px){
+      .hero{grid-template-columns:1fr}
+      .about-img{float:none;display:block;margin:0 auto 20px}
     }
-
   </style>
-  <link rel="icon" href="rocket.jpg.png">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <div class="logo">V</div>
-        <div>
-          <div style="font-weight:800">Vishal</div>
-          <div style="font-size:12px;color:var(--muted)">Web Developer • UI Engineer</div>
-        </div>
+
+<div class="container">
+<header>
+  <div class="brand">
+    <div class="logo">V</div>
+    <div>
+      <strong>Vishal</strong>
+      <div style="font-size:12px;color:var(--muted)">Web Developer • UI Engineer</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#" onclick="openLogin()">Login</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+    <a href="#" onclick="openLogout()">Logout</a>
+  </nav>
+</header>
+
+<div id="overlay" class="overlay" onclick="closeAll()"></div>
+
+<div id="loginModal" class="card modal">
+  <h2>Login</h2>
+  <form onsubmit="event.preventDefault();closeLogin()">
+    <input required placeholder="Username" style="width:100%;padding:10px;margin-bottom:8px">
+    <input required type="password" placeholder="Password" style="width:100%;padding:10px;margin-bottom:8px">
+    <button class="btn">Login</button>
+  </form>
+</div>
+
+<div id="logoutModal" class="card modal">
+  <h2>Logout</h2>
+  <p style="color:var(--muted)">Are you sure?</p>
+  <button class="btn secondary" onclick="confirmLogout()">Confirm Logout</button>
+</div>
+
+<main class="hero">
+  <div>
+    <div class="card intro">
+      <h1>Hello, I'm Vishal</h1>
+      <p>I build modern, fast and user‑friendly web interfaces.</p>
+    </div>
+
+    <section id="about" class="fade-up">
+      <img src="My.jpg.PNG" class="about-img" alt="Vishal">
+      <h2>About Me</h2>
+      <div class="card" style="color:var(--muted)">
+        Passionate Front‑end Developer specializing in responsive, accessible UI and modern web technologies.
       </div>
-      <nav>
-        <a href="#about">About</a>
-        <a href="#work">Work</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
+    </section>
 
-    <main class="hero">
-      <div>
-        <div class="intro card">
-          <h1>Hello, I'm Vishal - Building Delightful Web Experiences.</h1>
-          <p>I design and develop fast, accessible websites and web apps. I love clean interfaces, intentional interactions, and pixel-perfect details.</p>
-          <div class="cta">
-            <button class="btn" onclick="scrollToSection('work')">See my work</button>
-            <button class="btn secondary" onclick="scrollToSection('contact')">Contact me</button>
-          </div>
-        </div>
-
-        <section id="about" class="fade-up">
-          <img src="My.jpg.PNG" alt="">
-          <h2 class="section-title">About Me</h2>
-          <div class="card" style="padding:20px;color:var(--muted);line-height:1.6">
-            
-            I'm Vishal, a passionate Front‑end Developer focused on crafting clean, modern, and user‑friendly digital experiences.
-            I specialize in responsive UI development, accessibility-first design, and building fast, optimized web interfaces.
-            <br><br>
-            I enjoy solving real problems through thoughtful design and intuitive interactions.
-          </div>
-        </section>
-
-        <section id="work" class="fade-up">
-          
-        
-
-        
-
-        <section id="experience" class="fade-up">
-          <h2 class="section-title">Experience</h2>
-          <div class="card" style="padding:20px;display:flex;flex-direction:column;gap:16px">
-            <div>
-              <div style="font-weight:700">Front‑end Developer — Freelance</div>
-              <div style="color:var(--muted);font-size:14px">2022 — Present</div>
-              <p style="color:var(--muted);margin:6px 0 0">Building modern websites, dashboards, and landing pages for clients using React, HTML, CSS, and Tailwind.</p>
-              <section id="resume" class="fade-up">
+    <section id="experience" class="fade-up">
+      <h2>Experience</h2>
+      <div class="card" style="color:var(--muted)">
+        <strong>Front‑end Developer — Freelance</strong><br>
+        2022 — Present
+      </div>
+    </section>
+    <section id="resume" class="fade-up">
   <h2 class="section-title">Resume</h2>
   <div class="card" style="padding:20px;color:var(--muted)">
     <p>
@@ -134,79 +131,53 @@
   </div>
 </section>
 
-            </div>
-            <div>
-              <div style="font-weight:700"></div>
-              <div style="color:var(--muted);font-size:14px"></div>
-              <p style="color:var(--muted);margin:6px 0 0"></p>
-            </div>
-          </div>
-        </section>
-
-        <section id="contact" class="fade-up"">
-          <h2 class="section-title">Get in touch</h2>
-          <div class="card" style="display:flex;flex-direction:column;gap:12px">
-            <div style="color:var(--muted)">Interested in working together? Send a message and I'll respond as soon as I can.</div>
-            <form onsubmit="event.preventDefault();alert('Thanks — message sent (demo)')">
-              <input required placeholder="Your name" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;margin-bottom:8px">
-              <input required type="email" placeholder="Email" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;margin-bottom:8px">
-              <textarea required placeholder="Message" rows="4" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;margin-bottom:8px"></textarea>
-              <button class="btn" type="submit">Send</button>
-            </form>
-          </div>
-        </section>
-
+    <section id="contact" class="fade-up">
+      <h2>Contact</h2>
+      <div class="card">
+        <form onsubmit="event.preventDefault();alert('Message sent (demo)')">
+          <input required placeholder="Name" style="width:100%;padding:10px;margin-bottom:8px">
+          <input required type="email" placeholder="Email" style="width:100%;padding:10px;margin-bottom:8px">
+          <textarea required placeholder="Message" rows="4" style="width:100%;padding:10px;margin-bottom:8px"></textarea>
+          <button class="btn">Send</button>
+        </form>
       </div>
-
-      <aside class="card profile">
-        <div class="avatar">V</div>
-        <div style="font-weight:700;text-align:center">Vishal</div>
-        <div style="color:var(--muted);font-size:14px;text-align:center">Front-end Developer •</div>
-        <div class="skills">
-          <div class="chip">HTML</div>
-          <div class="chip">CSS</div>
-          <div class="chip">JavaScript</div>
-          <div class="chip">React</div>
-          <div class="chip"></div>
-        </div>
-        <div style="margin-top:12px;width:100%"><a href="#contact" class="btn" style="display:block;text-align:center">Hire me</a></div>
-      </aside>
-    </main>
-
-    <footer>
-      <div>© <span id="year"></span> </div>
-    </footer>
+    </section>
   </div>
 
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-    function scrollToSection(id){
-      var el = document.getElementById(id);
-      if(el){el.scrollIntoView({behavior:'smooth',block:'start'})}
+  <aside class="card profile">
+    <div class="avatar">V</div>
+    <strong>Vishal</strong>
+    <div class="skills">
+      <div class="chip">HTML</div>
+      <div class="chip">CSS</div>
+      <div class="chip">JavaScript</div>
+      <div class="chip">React</div>
+      <div class="chip">Tailwind</div>
+    </div>
+    <a href="#contact" class="btn" style="margin-top:10px">Hire Me</a>
+  </aside>
+</main>
 
-    }
-    
-      /* reveal on scroll */
-    const revealEls = document.querySelectorAll('.fade-up, .fade-in');
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}})
-    },{threshold:0.2});
-    revealEls.forEach(el=>io.observe(el));
-  </script>
+<footer>
+  © <span id="year"></span> Vishal
+</footer>
+</div>
 
-  <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/693fa796a98748197f472168/1jcgad946';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const revealEls = document.querySelectorAll('.fade-up');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => e.isIntersecting && e.target.classList.add('visible'));
+  },{threshold:0.2});
+  revealEls.forEach(el => io.observe(el));
+
+  function openLogin(){overlay.style.display='block';loginModal.style.display='block'}
+  function closeLogin(){closeAll();alert('Login successful (demo)')}
+  function openLogout(){overlay.style.display='block';logoutModal.style.display='block'}
+  function confirmLogout(){closeAll();alert('Logged out (demo)')}
+  function closeAll(){overlay.style.display='none';loginModal.style.display='none';logoutModal.style.display='none'}
 </script>
-<!--End of Tawk.to Script-->
+
 </body>
 </html>
-
